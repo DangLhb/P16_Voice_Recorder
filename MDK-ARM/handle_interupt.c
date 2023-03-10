@@ -340,7 +340,7 @@ void Handle_Back_Button_Event(void)
 
 
 //Ham xu li nut LOOP_RANDOM_RANDOM
-uint8_t g_set_status_loop_random = 0;
+uint8_t g_set_status_loop_random = 1;
 void Handle_loop_random_Button_Event(void)
 {
 	if(status == RECORDING)
@@ -376,14 +376,12 @@ void Hanlde_IR_event(void)
 	if(status == RECORDING)
 	{
 		Stop_record();
-		//event_interupt = NO_EVENT;
 	}
 	if(status == PLAYING)
 	{
 			Stop_play();
-			//event_interupt = NO_EVENT;
 	}	
-	event_interupt = NO_EVENT;
+	//event_interupt = NO_EVENT;
 }
 void handle_event(event even_t)
 {
@@ -416,13 +414,11 @@ void handle_event(event even_t)
 		case IR_EVENT:
 			HAL_UART_Transmit(&huart1, (uint8_t *)"IR_EVENT", 8, HAL_MAX_DELAY);
 			//HAL_Delay(100);
+		
 			if(stt_play !=0)
-				stt_play = pin_control += 1; 
-			
-			char msg[59];
-		sprintf(msg, "\n pin_control = %d ",pin_control );
-		HAL_UART_Transmit(&huart1, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
+				stt_play = pin_control +1; 
 			Hanlde_IR_event();
+			event_interupt = NO_EVENT;
 			//Enter_Standby_Mode();
 			
 		break;
