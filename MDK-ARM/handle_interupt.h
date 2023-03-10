@@ -15,8 +15,15 @@ typedef enum
 	PLAY_EVENT,
 	IR_EVENT,
 	TIMER_INTERUPT,
-	SLEEP_EVENT
+	SLEEP_EVENT,
+	LOOP_RANDOM_EVENT
 }event;
+typedef enum
+{
+	NOTHING = 0,
+	LOOP,
+	RANDOM
+}status_loop;
 //enum event event_interupt;
 
 void handle_event(uint8_t event);
