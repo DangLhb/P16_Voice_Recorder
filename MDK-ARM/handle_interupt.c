@@ -426,6 +426,7 @@ void handle_event(event even_t)
 			if(stt_play !=0)
 				stt_play = pin_control +1; 
 			Hanlde_IR_event();
+			HAL_Delay(1500);
 			event_interupt = NO_EVENT;
 			//Enter_Standby_Mode();
 			
