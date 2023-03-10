@@ -8,6 +8,7 @@
 #include "stdio.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include <time.h>
 #include "handle_interupt.h"
 #include "ir_remote.h"
 
@@ -28,9 +29,11 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern uint8_t interupt_timer_3;
 extern uint8_t timer_standby;
-
+uint8_t g_random_count = 0;
+uint8_t c_random_cacula[100] = {3,2,1,5,1,1,4,2,5,2,4,1,1,2,3,2,4,3,5,1,4,2,
+	3,5,1,2,3,1,4,3,2,1,5,1,1,4,2,5,2,4,1,1,2,5,1,2,3,1,4,3,2,1,2,3,2,4,3,5,1,4,2};
 // ham random
-int GetRandom(int min,int max){
+uint32_t GetRandom(int min,int max){
     return min + (int)(rand()*(max-min+1.0)/(1.0+RAND_MAX));
 }
 
@@ -86,9 +89,14 @@ void handel_no_event(void)
 	{
 		HAL_Delay(100);
 		HAL_UART_Transmit(&huart1, (uint8_t *)"DangLHB- RANDOM", sizeof("DangLHB- enter BACK_EVENT"), HAL_MAX_DELAY);
+		//srand((unsigned int)time(NULL));
 		if(full_record == 1)
 		{
-			stt_play = GetRandom(1,5);
+			g_random_count += 1;
+			if(g_random_count > 59)
+				g_random_count = 0;
+			stt_play = c_random_cacula[g_random_count];
+			//stt_play = GetRandom(1,5);
 			sprintf(msg, "\n stt_play = %d", stt_play);
 			HAL_UART_Transmit(&huart1, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
 			Start_play();
