@@ -16,7 +16,8 @@ typedef enum
 	IR_EVENT,
 	TIMER_INTERUPT,
 	SLEEP_EVENT,
-	LOOP_RANDOM_EVENT
+	LOOP_RANDOM_EVENT,
+	POWER_OFF
 }event;
 typedef enum
 {

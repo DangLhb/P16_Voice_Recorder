@@ -167,7 +167,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t button)
 			case GPIO_PIN_4:
 				HAL_UART_Transmit(&huart1, (uint8_t *)"button- poweroff", sizeof("button- poweroff"), HAL_MAX_DELAY);	
 				//event_interupt = IR_EVENT;
-			Enter_Standby_Mode();
+			//Enter_Standby_Mode();
+				event_interupt = POWER_OFF;
 			break;				
 			default:
 								HAL_UART_Transmit(&huart1, (uint8_t *)"ir0", 3, HAL_MAX_DELAY);
@@ -240,6 +241,10 @@ void Enter_Standby_Mode(void)
 	if(status == PLAYING)
 		Stop_play();
 	//lock_interupt = 0;
+	//HAL_Delay(500);
+	
+		//HAL_UART_Transmit(&huart1, (uint8_t *)"DangLHB- enter standymode      ", sizeof("DangLHB- enter standymode      "), HAL_MAX_DELAY);		
+
 		//goi ham vao che do standy.
 		__HAL_RCC_PWR_CLK_ENABLE();
    if(__HAL_PWR_GET_FLAG(PWR_FLAG_SB))
@@ -431,6 +436,9 @@ void handle_event(event even_t)
 			//Enter_Standby_Mode();
 			
 		break;
+		case POWER_OFF:
+			Enter_Standby_Mode();
+			break;
 		default:
 		break;
 	}
