@@ -105,7 +105,14 @@ void handel_no_event(void)
 		{
 			if(pin_control > 0)
 			{
-				stt_play = GetRandom(1,pin_control);
+				g_random_count +=1;
+				if(g_random_count > 59)
+					g_random_count = 0;
+				while(c_random_cacula[g_random_count] > pin_control)
+				{
+					g_random_count +=1;
+				}
+				stt_play = c_random_cacula[g_random_count];
 				sprintf(msg, "\n stt_play 2 = %d", stt_play);
 				HAL_UART_Transmit(&huart1, (uint8_t *)msg, strlen(msg), HAL_MAX_DELAY);
 				Start_play();
@@ -241,7 +248,8 @@ void Enter_Standby_Mode(void)
 	if(status == PLAYING)
 		Stop_play();
 	//lock_interupt = 0;
-	//HAL_Delay(500);
+	HAL_Delay(200);
+	event_interupt = NO_EVENT;
 	
 		//HAL_UART_Transmit(&huart1, (uint8_t *)"DangLHB- enter standymode      ", sizeof("DangLHB- enter standymode      "), HAL_MAX_DELAY);		
 
