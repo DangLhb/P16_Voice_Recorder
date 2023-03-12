@@ -248,6 +248,8 @@ void Enter_Standby_Mode(void)
 	if(status == PLAYING)
 		Stop_play();
 	//lock_interupt = 0;
+	HAL_TIM_Base_Stop_IT(&htim2);
+	HAL_TIM_Base_Stop_IT(&htim3);
 	HAL_Delay(200);
 	event_interupt = NO_EVENT;
 	
