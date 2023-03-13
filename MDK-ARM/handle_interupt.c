@@ -403,7 +403,9 @@ void Hanlde_IR_event(void)
 	if(status == PLAYING)
 	{
 			Stop_play();
-	}	
+	}
+	// call handle_no_event() to play record with no delay
+	handel_no_event();	
 	//event_interupt = NO_EVENT;
 }
 void handle_event(event even_t)
